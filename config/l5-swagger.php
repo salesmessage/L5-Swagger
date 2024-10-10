@@ -135,6 +135,11 @@ return [
             'analysis' => null,
 
             /**
+             * Define after which Open Api's processor we want to happen the custom ones. BuildPaths by default.
+             */
+            'append-processors-after' => \OpenApi\Processors\BuildPaths::class,
+
+            /**
              * Custom query path processors classes.
              *
              * @link https://github.com/zircote/swagger-php/tree/master/Examples/processors/schema-query-parameter

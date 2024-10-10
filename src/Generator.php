@@ -18,6 +18,7 @@ class Generator
 {
     public const OPEN_API_DEFAULT_SPEC_VERSION = '3.0.0';
 
+    protected const SCAN_OPTION_APPEND_PROCESSORS_AFTER = 'append-processors-after';
     protected const SCAN_OPTION_PROCESSORS = 'processors';
     protected const SCAN_OPTION_PATTERN = 'pattern';
     protected const SCAN_OPTION_ANALYSER = 'analyser';
@@ -232,14 +233,19 @@ class Generator
      */
     protected function setProcessors(OpenApiGenerator $generator): void
     {
+        $appendProcessorAfterClass = Arr::get(
+            $this->scanOptions,
+            self::SCAN_OPTION_APPEND_PROCESSORS_AFTER,
+            \OpenApi\Processors\BuildPaths::class
+        );
         $processorClasses = Arr::get($this->scanOptions, self::SCAN_OPTION_PROCESSORS, []);
         $processors = [];
 
         foreach ($generator->getProcessors() as $processor) {
             $processors[] = $processor;
-            if ($processor instanceof \OpenApi\Processors\BuildPaths) {
+            if ($processor instanceof $appendProcessorAfterClass) {
                 foreach ($processorClasses as $customProcessor) {
-                    $processors[] = new $customProcessor();
+                    $processors[] = $customProcessor;
                 }
             }
         }
