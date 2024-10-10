@@ -145,6 +145,19 @@ return [
             ],
 
             /**
+             * Define custom processors with extended configuration.
+             */
+            'extended_processors' => [
+                /*
+                [
+                    'class' => \App\SwaggerProcessors\SchemaQueryParameter::class,
+                    'after' => \OpenApi\Processors\BuildPaths::class,
+                    'config' => [],
+                ],
+                */
+            ],
+
+            /**
              * pattern: string       $pattern File pattern(s) to scan (default: *.php) .
              *
              * @see \OpenApi\scan
